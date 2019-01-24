@@ -8,7 +8,7 @@ Primaires :
 * Sirene, stock établissements au 01/2019 : https://www.data.gouv.fr/fr/datasets/r/d9c12e7e-6a9d-4564-a846-86b8b563a477 (as "./data/StockEtablissement_utf8.csv") ;
 
 Secondaires :
-* BDD des tranches d'effectifs sur la base de la doc (as "./data/trancheEffectifsEtablissement.csv")
+* BDD des tranches d'effectifs sur la base de la doc (as "./data/effectifs.csv")
 
 ## Etat des recherches
 
