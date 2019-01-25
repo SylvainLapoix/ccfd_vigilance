@@ -1,5 +1,3 @@
-Repo du projet CCFD - Devoir de vigilance
-
 En cours.
 
 ## Sources
@@ -23,6 +21,8 @@ Le premier tri vise à identifier les entreprises comportant au moins un établi
 Ce tri permet l'identification de 45 unités légales, dont deux (PSA Automobiles SA et APHP) disposant de trois établissements à plus de 5000 salariés.
 
 La liste complète est fourni ci-dessous et stockée dans "./data_out/Et_sup_5000.csv" :
+
+
 | denominationunitelegale                                         | Etablisements | 
 |-----------------------------------------------------------------|---------------| 
 | AIRBUS                                                          | 1             | 
