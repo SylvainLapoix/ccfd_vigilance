@@ -10,12 +10,7 @@ Secondaires :
 
 ## Etat des recherches
 
-### Nettoyage
-Constitution de deux BDDs légères : une BDD effectifs et une BDD noms sur la base d'une version filtrée (exclusion des établissements fermés et des effectifs nuls ou sans effectifs).
-
-### Calculs
-
-#### Première approche : recherches d'établissements de plus de 5000 salariés en France
+### Première approche : recherches d'établissements de plus de 5000 salariés en France
 Le premier tri vise à identifier les entreprises comportant au moins un établissement basé en France disposant d'un effectif supérieur à 5000 salariés (valeurs de tranche d'effectif 52 ou 53).
 
 Ce tri permet l'identification de 45 unités légales, dont deux (PSA Automobiles SA et APHP) disposant de trois établissements à plus de 5000 salariés.
@@ -75,12 +70,12 @@ Ces entreprises sont a priori éligibles.
 
 Nous pourrons, dans un deuxième temps, faire une estimation a minima de leurs effectifs théoriques en totalisant la somme des minimums de tranche de tous les établissements de même code siren.
 
-#### Deuxième approche : recherches d'établissements de plus de 10000 salariés hors de France
+### Deuxième approche : recherches d'établissements de plus de 10000 salariés hors de France
 Le second tri vise à identifier les entreprises comportant au moins un établissement hors de France disposant d'un effectif supérieur à 10000 salariés (valeurs de tranche d'effectif 53).
 
 Ce tri aboutit à un résultat nul.
 
-#### Troisième approche : regroupement d'établissment et somme par minima de tranches en France
+### Troisième approche : regroupement d'établissment et somme par minima de tranches en France
 Le troisième tri vise à identifier les entreprises totalisant plus de 5000 salariés par la somme du minimum de la tranche d'effectif de tous les établissements.
 
 Ce tri permet l'identification de 103 unités légales, dont deux dépourvues de nom :
@@ -197,4 +192,4 @@ La liste complète est fourni ci-dessous et stockée dans [U_groupees.csv]("./da
 
 - manque quelques opérations pour réconcilier les deux bases et extraire les doublons -
 
-#### Quatrième approche : rapprochement par noms ?
+### Quatrième approche : groupement des établissements à l'étranger
