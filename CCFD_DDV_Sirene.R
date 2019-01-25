@@ -63,8 +63,47 @@ e_5000FR %>% group_by(denominationunitelegale) %>%
   summarise(Etablisements = n()) %>% write_csv("./data_out/Et_sup_5000.csv")
 
 
-# deuxème sélection par groupement
-e_eff %>% filter(trancheeffectifsetablissement %in% c("01","02","03","11","12","21","22","31","32","41","42","51")) %>% 
-  group_by(siren,trancheeffectifsetablissement,libellepaysetrangeretablissement) %>% 
-  summarise(total = n())
+## deuxème sélection par groupement
 
+tranches <- c("01","02","03","11","12","21","22","31","32","41","42","51")
+eff <- read_csv("./data/effectifs.csv")
+names(eff)
+
+# test sur un subset de 100k
+effmin0 <- et_light[1:100000,] %>% filter(trancheeffectifsetablissement %in% tranches) %>% 
+  filter(is.na(libellepaysetrangeretablissement)) %>% 
+  group_by(siren,trancheeffectifsetablissement) %>%
+  summarise(total = n()) %>%
+  left_join(eff, by = c("trancheeffectifsetablissement" = "trancheEffectifsEtablissement")) %>% 
+  # création d'une variable sur la base du minimum par tranche
+  mutate(approx = total*min) %>% 
+  group_by(siren) %>% 
+  summarise(etablissements = n(), effectifmin = sum(approx))
+
+effmin0 %>% filter(effectifmin >= 5000)
+
+# sur la base entière
+effmin <- et_light %>% filter(trancheeffectifsetablissement %in% tranches) %>% 
+  filter(is.na(libellepaysetrangeretablissement)) %>% 
+  group_by(siren,trancheeffectifsetablissement) %>%
+  summarise(total = n()) %>%
+  left_join(eff, by = c("trancheeffectifsetablissement" = "trancheEffectifsEtablissement")) %>% 
+  # création d'une variable sur la base du minimum par tranche
+  mutate(approx = total*min) %>% 
+  group_by(siren) %>% 
+  summarise(etablissements = n(), effectifmin = sum(approx))
+
+U_groupees <- effmin %>% filter(effectifmin >= 5000) %>% 
+  left_join(u_light, by = c("siren"="siren"))
+
+U_groupees %>% write_csv("./data_out/U_groupees.csv")
+U_groupees %>% filter(is.na(denominationunitelegale)) # 2 NA dans les dénominations légales
+# 067800425 = ONET SERVICES
+# 356000000 = LA POSTE
+
+## groupement des deux bases
+
+
+# alléger u_light : filter-out les entreprises "Cessées" ?
+# filter-out Sirene des entreprises déjà identifiée ?
+# 
