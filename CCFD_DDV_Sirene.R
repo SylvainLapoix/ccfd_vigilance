@@ -5,9 +5,12 @@ library(tidyverse)
 
 ## nettoyage -----
 
-# s <- read_csv("./data/StockEtablissement_utf8.csv")
+# sources des fichiers
+zip <- "https://www.data.gouv.fr/fr/datasets/r/b1711a83-19ee-4711-9f35-fa4e0095d7d6"
+
+# chargement local
+s <- read_csv("./data/StockEtablissement_utf8.csv")
 n <- read.csv("./data/StockUniteLegale_utf8.csv")
-et <- read_csv("./data/effectifs.csv")
 
 n$siren <- as.character(n$siren)
 
