@@ -101,7 +101,9 @@ u_light$siren <- as.character(u_light$siren)
 U_groupees <- effmin %>% filter(effectifmin >= 5000) %>% 
   left_join(u_light, by = c("siren"="siren"))
 
-U_groupees %>% write_csv("./data_out/U_groupees.csv")
+names(U_groupees)
+
+U_groupees %>% select(-c("categorieentreprise", "denominationusuelle1unitelegale")) %>% write_csv("./data_out/U_groupees.csv")
 U_groupees %>% filter(is.na(denominationunitelegale)) # 2 NA dans les dénominations légales
 # 067800425 = ONET SERVICES
 # 356000000 = LA POSTE
