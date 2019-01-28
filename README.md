@@ -1,4 +1,4 @@
-En cours.
+# Sirene
 
 ## Sources
 
@@ -8,14 +8,12 @@ Primaires :
 Secondaires :
 * BDD des tranches d'effectifs sur la base de la doc (as "./data/effectifs.csv")
 
-## Etat des recherches
-
-### Première approche : recherches d'établissements de plus de 5000 salariés en France
+## Première approche : recherches d'établissements de plus de 5000 salariés en France
 Le premier tri vise à identifier les entreprises comportant au moins un établissement basé en France disposant d'un effectif supérieur à 5000 salariés (valeurs de tranche d'effectif 52 ou 53).
 
 Ce tri permet l'identification de 45 unités légales, dont deux (PSA Automobiles SA et APHP) disposant de trois établissements à plus de 5000 salariés.
 
-La liste complète est fourni ci-dessous et stockée dans [Et_sup_5000.csv]("./data_out/Et_sup_5000.csv") :
+La liste complète est fourni ci-dessous :
 
 
 | denominationunitelegale                                         | Etablisements | 
@@ -70,19 +68,19 @@ Ces entreprises sont a priori éligibles.
 
 Nous pourrons, dans un deuxième temps, faire une estimation a minima de leurs effectifs théoriques en totalisant la somme des minimums de tranche de tous les établissements de même code siren.
 
-### Deuxième approche : recherches d'établissements de plus de 10000 salariés hors de France
+## Deuxième approche : recherches d'établissements de plus de 10000 salariés hors de France
 Le second tri vise à identifier les entreprises comportant au moins un établissement hors de France disposant d'un effectif supérieur à 10000 salariés (valeurs de tranche d'effectif 53).
 
 Ce tri aboutit à un résultat nul.
 
-### Troisième approche : regroupement d'établissment et somme par minima de tranches en France
+## Troisième approche : regroupement d'établissment et somme par minima de tranches en France
 Le troisième tri vise à identifier les entreprises totalisant plus de 5000 salariés par la somme du minimum de la tranche d'effectif de tous les établissements.
 
 Ce tri permet l'identification de 136 unités légales, dont deux dépourvues de nom :
 * 067800425 = ONET FRANCE ;
 * 356000000 = LA POSTE.
 
-La liste complète est fournie ci-dessous et stockée dans [U_groupees.csv]("./data_out/U_groupees.csv") :
+La liste complète est fournie ci-dessous et stockée dans [sirene_5000FR.csv]("./data_out/sirene_5000FR.csv") :
 
 
 | siren     | etablissements | effectifmin | denominationunitelegale                                         | 
@@ -226,4 +224,31 @@ La liste complète est fournie ci-dessous et stockée dans [U_groupees.csv]("./d
 
 
 
-### Quatrième approche : groupement des établissements à l'étranger
+## Quatrième approche : groupement des établissements à l'étranger
+
+------
+
+# Infogreffe
+
+## Sources
+
+Primaires :
+* Infogreffe, chiffres clefs 2017 : https://opendata-infogreffe.com/explore/dataset/chiffres-cles-2017 ;
+
+## Filtre simple sur les effectifs
+Nous ne retenons que les entreprises ayant des valeurs pour le millésime 1 (= 2017), soit 1030633 unités légales.
+
+La base Infogreffe proposant une valeur brute d'effectif, nous la filtrons pour ne conserver que les valeurs supérieures ou égales à 5000.
+
+82 établissements ressortent dont voici la liste (stockée dans le fichier [greffe_5000FR.csv]("./data_out/greffe_5000FR.csv")) :
+
+
+
+**Problème** : les effectifis ici identifiés ne sont pas différenciés entre établissements français et établissements étrangers.
+
+--------
+
+# Comparatifs
+
+## Sirene groupés / Infogreffe
+
