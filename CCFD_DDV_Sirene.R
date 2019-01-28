@@ -1,6 +1,9 @@
-## prep ----
+## libs ----
 
 library(tidyverse)
+
+
+## nettoyage -----
 
 # s <- read_csv("./data/StockEtablissement_utf8.csv")
 n <- read.csv("./data/StockUniteLegale_utf8.csv")
@@ -8,7 +11,6 @@ et <- read_csv("./data/effectifs.csv")
 
 n$siren <- as.character(n$siren)
 
-## nettoyage -----
 
 # BDD 0 : light
 table(s$etatadministratifetablissement) # A = 11166787, F = 16834869
@@ -65,7 +67,8 @@ e_5000FR %>% group_by(denominationunitelegale) %>%
 
 ## deuxème sélection par groupement
 
-tranches <- c("01","02","03","11","12","21","22","31","32","41","42","51")
+# j'ai complété le vecteur "tranches" pour intégrer les deux tranches supérieures
+tranches <- c("01","02","03","11","12","21","22","31","32","41","42","51","52","53")
 eff <- read_csv("./data/effectifs.csv")
 names(eff)
 
@@ -93,6 +96,8 @@ effmin <- et_light %>% filter(trancheeffectifsetablissement %in% tranches) %>%
   group_by(siren) %>% 
   summarise(etablissements = n(), effectifmin = sum(approx))
 
+u_light$siren <- as.character(u_light$siren)
+
 U_groupees <- effmin %>% filter(effectifmin >= 5000) %>% 
   left_join(u_light, by = c("siren"="siren"))
 
@@ -101,9 +106,4 @@ U_groupees %>% filter(is.na(denominationunitelegale)) # 2 NA dans les dénominat
 # 067800425 = ONET SERVICES
 # 356000000 = LA POSTE
 
-## groupement des deux bases
-
-
 # alléger u_light : filter-out les entreprises "Cessées" ?
-# filter-out Sirene des entreprises déjà identifiée ?
-# 
