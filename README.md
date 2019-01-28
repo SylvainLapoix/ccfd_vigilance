@@ -82,10 +82,11 @@ Ce tri permet l'identification de 136 unités légales, dont deux dépourvues de
 * 067800425 = ONET FRANCE ;
 * 356000000 = LA POSTE.
 
-La liste complète est fourni ci-dessous et stockée dans [U_groupees.csv]("./data_out/U_groupees.csv") :
+La liste complète est fournie ci-dessous et stockée dans [U_groupees.csv]("./data_out/U_groupees.csv") :
 
-|-----------|----------------|-------------|-----------------------------------------------------------------| 
+
 | siren     | etablissements | effectifmin | denominationunitelegale                                         | 
+|-----------|----------------|-------------|-----------------------------------------------------------------| 
 | 067800425 | 6              | 18790       | NA                                                              | 
 | 130005481 | 11             | 36997       | POLE EMPLOI                                                     | 
 | 130015332 | 9              | 5458        | UNIVERSITE D'AIX MARSEILLE                                      | 
