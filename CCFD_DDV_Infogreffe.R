@@ -16,5 +16,7 @@ g1 <- g %>% filter(!is.na(`Millesime 1`)) %>%
   select(Dénomination,Siren,`Date immatriculation`,`Date radiation`,Statut,
          `Date de cloture exercice 1`,`Effectif 1`)
 
+g1$Siren <- as.character(g1$Siren)
+
 g5000 <- g1  %>% filter(`Effectif 1` >= 5000)
 g5000 %>%  write_csv("./data_out/greffe_5000FR.csv")
