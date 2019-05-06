@@ -1,0 +1,291 @@
+---
+title: "L'applicabilité de la loi Devoir de vigilance"
+subtitle: "tentative d'identification des entreprises concernées"
+author: "Sylvain Lapoix, Datactivist"
+output:
+  SlidesDatactivist::moon_reader:
+    css: [default, datactivist, datactivist-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+params:
+  event: Devoir de vigilance - rapport CCFD
+  slug: Devoir de vigilance - rapport CCFD
+---
+
+layout: true
+  
+
+`r paste0("<div class='my-footer'><span>", params$event, "</span> <center><div class=logo><img src='https://github.com/datactivist/slides_datactivist/raw/master/inst/rmarkdown/templates/xaringan/resources/img/fond_noir_monochrome.png' width='100px'></center></span></div>")` 
+
+---
+
+class: center, middle
+
+Ces slides en ligne : `r paste0("http://datactivist.coop/", params$slug)`
+
+Sources : `r paste0("https://github.com/datactivist/", params$slug)`
+
+
+Les productions de Datactivist sont librement réutilisables selon les termes de la licence [Creative Commons 4.0 BY-SA](https://creativecommons.org/licenses/by-sa/4.0/legalcode.fr).
+
+<BR>
+<BR>
+
+![](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-sa.png)
+
+
+---
+
+class: inverse, left, middle
+
+## Contexte
+
+La [loi 2017-399 du 27 mars 2017](https://www.legifrance.gouv.fr/eli/loi/2017/3/27/2017-399/jo/texte) relative au devoir de vigilance des sociétés mères et des entreprises donneuses d'ordre (dite **"*loi devoir de vigilance*"**) instaure l'obligation de l'établissement et de la mise en oeuvre d'un plan de vigilance relatif à l'activité de la société et de l'ensemble des filiales ou sociétés qu'elle contrôle portant sur les risques et la prévention des atteintes graves envers les droits humains et fondamentaux, la santé et la sécurité des personnes et de l'environnement résultant de ses activités.
+
+Les entreprises devant mettre en oeuvre un tel plan sont ainsi définies comme :
+* employant **au moins 5000 salariés en France** dans leur sein et leurs filiales **à la clôture de deux exercices consécutifs** ;
+* employant **au moins 10000 salariés en France ou à l'étranger** dans leur sein et leurs filiales **à la clôture de deux exercices consécuritfs**.
+
+---
+
+class: inverse, left, middle
+
+## Démarche
+
+**Aucune liste des entreprises concernées n'étant fournies par le législateur**, nos organisations ignorent le champs d'application de cette loi.
+
+Afin d'évaluer ce périmètre, nous avons procédé à une analyse des données disponibles en open data offrant des effectifs pour les entrepriss françaises. Nous avons croisé les listes ainsi obtenus pour évaluer la cohérence des données publiques. Nous avons enfin confronté ces listes "ouvertes" à des listes payantes mises à disposition par des plateformes privées d'intelligence économique ainsi qu'à la liste des entreprises s'étant déclarées éligibles et aux effectifs publiés par ailleurs.
+
+Notre démarche poursuit ainsi trois objectifs :
+1. proposer **une liste "a minima"** d'entreprises concernées par la loi ;
+2. évaluer **l'utilité des données ouvertes** pour cet usage ;
+3. questionner **la pertinence du cadre légal** pour remplir les objectifs que se fixe la loi.
+
+---
+## Méthodologie
+
+
+### Analyse de données
+En s'appuyant sur les bases de données Sirene et Infogreffe, nous avons établi des listes suivant les critères énoncés par la loi. Puis, nous les avons confrontés à deux sources non officielles : la base Orbis, commercialisée par Bureau van Dijk, et la liste établie par CCFD et Sherpa à partir de sources ouvertes. Les taux de recoupement apparaissent comme un indicateur pertinent de la validité des données mises à disposition par les administrations françaises.
+
+### Requêtes CADA
+En vertu de la loi relative à l'accès aux documents administratifs de 1978, nous avons sollicité les deux organismes producteurs de la base de liaison financières Lifi, l'Insee et le ministère des Finances. Le déroulement de ces démarches nous renseignent sur la disponibilité des données nécessaires pour mettre la loi en application.
+
+---
+
+class: inverse, center, middle
+
+# Analyse de données
+
+---
+
+## Base Infogreffe
+
+La base Infogreffe met à disposition en open data les données du registre du tribunal de Commerce. Elle recense les entreprises déclarées à travers la France ainsi que des données micro-économiques sur un principe déclaratif.
+
+Les données sont disponibles sur le site d'Infogreffe soit sous forme de tableau interactif, soit sous forme de "chiffres clefs" par année avec trois années de profondeur temporelle sur les effectifs et le chiffre d'affaires. La base stipule également la forme juridique des entreprises.
+
+Infogreffe offre donc les informations minimales requises pour établir une première liste d'entreprises concernées par la loi Devoir de vigilance.
+
+---
+
+### Première liste 
+
+#### Millésime 2018
+La dernière édition des "chiffres clefs" porte le millésime 2018, entendu comme "situation déclarée au 31/12/2018". A la date de consultation (25/04/2019), le fichier proposé au téléchargement ne proposait que 262760 entreprises.
+
+L'application des critères de la loi nous amène à une liste de 5 entreprises cumulant des effectifs supérieurs à 5000 salariés en France deux années successives. Ce résultat s'explique, comme supposé plus haut, par le fait que la plupart des entreprises n'ont pas déclaré leur situation  (le jour même du téléchargement, elles étaient encore 5081 à avoir été enregistrées).
+
+#### Millésime 2017
+
+Le millésime 2017 présente un stock de 1103530 entreprises déclarées. **L'application des critères de la loi Devoir de vigilance amène à l'identification de 52 entreprises déclarant plus de 5000 salariés deux années consécutives (exercice 2016 et 2017 révolus)**.
+
+
+
+---
+
+### Formes juridiques
+
+L'analyse des formes juridiques fait apparaître une certaine homogénéité : **la majorité des entreprises répondant aux critères de la loi sont des SAS (23), des SAI (11) et des SASU (8)**. L'intégralité des entreprises relèvent du droit commercial.
+
+![](./graph/ddv_greffe_juri.png)
+
+
+---
+
+## Sirene
+
+La base Sirene est le service de référence pour l'identité des entreprises installées en France. Elle propose des stocks par unités légales et par établissements, proposant pour les premières des effectifs par tranche ou à 100 salariés près (suivant les anciens dessins L2 remplacés par de nouveaux standards au 01/05/2019).
+
+En nous saisissant des stocks aux mêmes dates de référence que les fichiers greffe (stock décembre 2016 assimilé janvier 2017 et décembre 2017 assimilé janvier 2018), nous disposons des effectifs approximés à 100 salariés et des formes juridiques nous permettant de tester les critères de la loi Devoir de vigilance pour établir une liste.
+
+---
+
+### Première liste
+
+**Un premier tri pour les années 2017 et 2018 nous amène à un total de 230 entreprises remplissant les critères de la loi Devoir de vigilance.**
+
+![](./graph/ddv_insee_juri1.png)
+
+
+---
+
+### Formes juridiques
+
+L'analyse des formes juridiques des entreprises indique cependant que toutes ces sociétés ne relèvent pas du même régime :
+* 79 entreprises relèvent du droit administratif (collectivités territoriales, hôpitaux, université, etc.) ;
+* 5 tombant sous la catégorie "groupement de droit privé", sont des organismes caricatifs (Croix Rouge, Association des paralysés de France, Fondation d'Auteuil...).
+
+Une fois écartées ces deux catégories, **nous obtenons une liste de 136 entreprises soumises au droit commercial ayant employé plus de 5000 salariés deux années de suite**.
+
+---
+
+### Recoupements
+
+En croisant les identifiants uniques Siren des entreprises répondant aux critères Devoir de vigilance pour les bases Greffe et Sirene, il apparaît que **l'intersection des listes se limite à 45 unités légales**. Aucune des bases ne peut donc être considérée comme suffisante à établir une liste.
+
+![](./graph/ddv_s-g_venneuler.png)
+
+---
+
+## Base Orbis
+
+[La base de données Orbis](https://www.bvdinfo.com/fr-fr/our-products/company-information/international-products/orbis) est un service fourni par la société Bureau van Dijk (filiale de la société d'analyse financière Moody's).
+
+Elle propose aux acteurs privés et publics des données micro-économiques sur 300 millions d'entreprises dans le monde, notamment leurs effectifs. Parmi les critères de recherche, elle offre notamment la possibilité de retracer les liens de propriété financière entre les établissements d'une même entreprise à l'internationale, offrant ainsi une estimation du périmètre réel des groupes.
+
+Cette base étant d'accès limité et payant, nous la considérons comme **un étalon de l'exhaustivité des données disponibles en open data**. Nous ne disposons par ailleurs par de la profondeur historique de deux années requises par la loi. Nous l'utiliserons ainsi uniquement comme outil de comparaison.
+
+---
+
+### Premières listes
+
+La liste Orbis permettant un filtre par effectif à l'échelle de la France et à l'échelle mondiale, nous pouvons tester les critères nationaux et internationaux de la loi.
+
+1. Plus de 5000 salariés France
+Au critère de "plus de 5000 salariés en France", **la base Orbis renvoie une liste de 259 entreprises, soit près du double de Sirene** (la plus importante établie en open data).
+
+2. Plus de 10000 salariés mondialement
+**La base Orbis renvoie 147 entreprises cumulant plus de 10000 salariés au niveau mondial dans leurs filiales détenues directement ou indirectement**, soit plus que le nombre total d'entreprises enregistrées pour Sirene.
+
+L'intersection des deux listes par nom renvoie 145 établissements, indiquant que la quasi totalité des entreprises dépassant le seuil d'emploi à l'international (147) le dépassent déjà en France. 114 entreprises de la liste française n'apparaissent pas dans la liste internationale, soit plus du double de la liste complète établie via le greffe.
+
+---
+
+### Croisement des listes par nom
+
+.pull-left[Nous établissons un croisement par nom entre la base Orbis pour le critère français et les deux autres bases. **Seules 31 noms d'entreprises** se retrouvent dans les trois bases.
+
+**Rappel méthodologique** : les recoupements sont réalisés sur les noms et non sur les identifiants uniques siren(non disponibles sur Orbis). Ils sont donc moins précis (d'où la valeur d'intersection de 33 entre Sirene et Greffe au lieu de 45 obtenus précédemment). Ces comparaisons sont donc à utiliser avec réserve comme des calculs *a minima*.]
+
+.pull-right[
+![](./graph/ddv_s-g-o_venneuler.png)
+]
+
+
+---
+
+## Liste établie par CCFD et Sherpa
+
+Sur la base de données ouvertes, les associations CCFD Terres solidaires et Sherpa ont établi une liste des entreprises ayant déclarées être soumises à la loi Devoir de vigilance ou ayant déjà publié un plan de ce type.
+
+    Accor
+    Air Liquide
+    Arkema
+    Atos
+    Bic
+    Bolloré
+    Bouygues
+    BPCE
+    CIC
+    Club Med
+    Danone
+    Dassault Systèmes
+    Eramet
+    Essilor
+    Faurecia
+    Groupama
+    Bel
+    Iliad
+    Imerys
+    Ipsos
+    JC Decaux
+    Keolis
+    Kering
+    Korian
+    Lagardère
+    LVMH
+    Nexans
+    Nexity
+    Pernod Ricard
+    Plastic Omnium
+    Publicis
+    Rexel
+    Saint Gobain
+    Teleperformance
+    Ubisoft
+    Valeo
+    Vallourec
+    Vinci
+    Wendel
+
+---
+
+class: inverse, center, middle
+
+# Requêtes CADA
+
+---
+
+## Base Lifi
+
+---
+
+## Requêtes aux producteurs
+
+---
+
+## Requête Cada
+
+---
+
+class: inverse, center, middle
+
+# Conclusions
+
+---
+
+## Liste établie via les données en open data
+
+Nous proposons une première liste établie par croisement des bases de données Sirene et greffe sur deux années successives (exercices 2017 et 2018) de 45 enreprises correspondant aux critères de la loi Devoir de vigilance :
+
+---
+
+## Cas des SARL
+
+
+
+---
+
+## 
+
+---
+
+## Utilité des données ouvertes
+
+
+---
+
+## Pertinence du cadre légal
+
+---
+class: inverse, center, middle
+
+# Merci !
+
+Contact : [joel@datactivist.coop](mailto:joel@datactivist.coop)
+
+
