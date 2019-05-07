@@ -215,16 +215,34 @@ merge(g,oFR, by="nom") %>% tally() # 39
 intersect(intersect(s$nom,g$nom),oFR$nom) # 31
 merge(s,g, by="nom") # 33 entreprises, soit 12 de moins qu'avec siren
 
-# venneuler s et g
+sg <- merge(s,g, by = "siren", all = FALSE) %>% 
+  select(siren,nom.x,forme.x,effectif.x,effectif.y) %>% 
+  setNames(c("siren","nom","forme","effectif_sirene","effectif_greffe"))
+
+intersect(sg$nom,oFR$nom)
+
+
+# venneuler s, g et o
 library(eulerr)
 
 vd <- euler(c(sirene=136,greffe=52, orbis=259,
               "sirene&orbis"=69,"greffe&orbis"=39,
-              "sirene&greffe&orbis"=31,
-              "sirene&greffe"=33))
+              "sirene&greffe&orbis"=37,
+              "sirene&greffe"=45))
 plot(vd, key = TRUE, quantities = TRUE)
 
 ## liste CCFD + Sherpa ----
+
+cs <- read_csv("./data/Liste_CCFD-Sherpa.csv") %>% 
+  setNames(c("Nom","Secteur","PV2017","PV2017_lien","PV2017_page",
+             "PV2018","PV2018_lien","PV2018_page"))
+
+cs
+
+
+
+
+
 
 # comparaisons CCFD + Sherpa / S / G
 
@@ -235,4 +253,5 @@ sg <- merge(s,g, by = "siren", all = FALSE) # 45
 sg %>% select(-c(nom.y,forme.y)) %>%
   setNames(c("siren","nom","forme","effectifSirene","effectifGreffe")) %>% 
   arrange(-desc(nom)) %>% 
-  select(nom, siren) %>% write_csv("./data_out/liste_s&g.csv")
+  select(nom, siren) # %>% write_csv("./data_out/liste_s&g.csv")
+

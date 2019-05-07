@@ -139,13 +139,13 @@ L'analyse des formes juridiques des entreprises indique cependant que toutes ces
 * 79 entreprises relèvent du droit administratif (collectivités territoriales, hôpitaux, université, etc.) ;
 * 5 tombant sous la catégorie "groupement de droit privé", sont des organismes caricatifs (Croix Rouge, Association des paralysés de France, Fondation d'Auteuil...).
 
-Une fois écartées ces deux catégories, **nous obtenons une liste de 136 entreprises soumises au droit commercial ayant employé plus de 5000 salariés deux années de suite**.
+Une fois écartées ces deux catégories, **nous obtenons une liste de 136 entreprises soumises au droit commercial ayant employé plus de 5000 salariés deux années de suite en France**.
 
 ---
 
-### Recoupements
+### Intersection
 
-En croisant les identifiants uniques Siren des entreprises répondant aux critères Devoir de vigilance pour les bases Greffe et Sirene, il apparaît que **l'intersection des listes se limite à 45 unités légales**. Aucune des bases ne peut donc être considérée comme suffisante à établir une liste.
+En croisant les identifiants uniques Siren des entreprises répondant aux critères de la loi Devoir de vigilance, il apparaît que **l'intersection des deux listes se limite à 45 unités légales**. Aucune des bases ne peut donc être considérée comme suffisante à établir une liste complète.
 
 ![](./graph/ddv_s-g_venneuler.png)
 
@@ -153,9 +153,9 @@ En croisant les identifiants uniques Siren des entreprises répondant aux critè
 
 ## Base Orbis
 
-[La base de données Orbis](https://www.bvdinfo.com/fr-fr/our-products/company-information/international-products/orbis) est un service fourni par la société Bureau van Dijk (filiale de la société d'analyse financière Moody's).
+[La base de données Orbis](https://www.bvdinfo.com/fr-fr/our-products/company-information/international-products/orbis) est un service fourni par la société Bureau van Dijk (filiale du groupe d'analyse financière Moody's).
 
-Elle propose aux acteurs privés et publics des données micro-économiques sur 300 millions d'entreprises dans le monde, notamment leurs effectifs. Parmi les critères de recherche, elle offre notamment la possibilité de retracer les liens de propriété financière entre les établissements d'une même entreprise à l'internationale, offrant ainsi une estimation du périmètre réel des groupes.
+Elle propose aux acteurs privés et publics des données micro-économiques sur 300 millions d'entreprises dans le monde, notamment leurs effectifs. Parmi les critères de recherche, elle offre la possibilité de retracer les liens de propriété financière entre les établissements d'une même entreprise à l'internationale, offrant ainsi une estimation du périmètre réel de ces sociétés.
 
 Cette base étant d'accès limité et payant, nous la considérons comme **un étalon de l'exhaustivité des données disponibles en open data**. Nous ne disposons par ailleurs par de la profondeur historique de deux années requises par la loi. Nous l'utiliserons ainsi uniquement comme outil de comparaison.
 
@@ -165,21 +165,24 @@ Cette base étant d'accès limité et payant, nous la considérons comme **un é
 
 La liste Orbis permettant un filtre par effectif à l'échelle de la France et à l'échelle mondiale, nous pouvons tester les critères nationaux et internationaux de la loi.
 
-1. Plus de 5000 salariés France
+#### Plus de 5000 salariés France
+
 Au critère de "plus de 5000 salariés en France", **la base Orbis renvoie une liste de 259 entreprises, soit près du double de Sirene** (la plus importante établie en open data).
 
-2. Plus de 10000 salariés mondialement
+#### Plus de 10000 salariés mondialement
+
 **La base Orbis renvoie 147 entreprises cumulant plus de 10000 salariés au niveau mondial dans leurs filiales détenues directement ou indirectement**, soit plus que le nombre total d'entreprises enregistrées pour Sirene.
 
-L'intersection des deux listes par nom renvoie 145 établissements, indiquant que la quasi totalité des entreprises dépassant le seuil d'emploi à l'international (147) le dépassent déjà en France. 114 entreprises de la liste française n'apparaissent pas dans la liste internationale, soit plus du double de la liste complète établie via le greffe.
+L'intersection des deux listes par nom renvoie 145 établissements, indiquant que la quasi totalité des entreprises dépassant le seuil d'emploi à l'international (147) le dépassent déjà en France..
 
 ---
 
 ### Croisement des listes par nom
 
-.pull-left[Nous établissons un croisement par nom entre la base Orbis pour le critère français et les deux autres bases. **Seules 31 noms d'entreprises** se retrouvent dans les trois bases.
+.pull-left[Nous établissons un croisement par nom entre la base Orbis pour le critère français et les deux autres bases. **Seules 37 noms d'entreprises** se retrouvent dans les trois bases.
 
-**Rappel méthodologique** : les recoupements sont réalisés sur les noms et non sur les identifiants uniques siren(non disponibles sur Orbis). Ils sont donc moins précis (d'où la valeur d'intersection de 33 entre Sirene et Greffe au lieu de 45 obtenus précédemment). Ces comparaisons sont donc à utiliser avec réserve comme des calculs *a minima*.]
+** Rappel méthodologique** :
+*les recoupements sont réalisés sur les noms et non sur les identifiants uniques siren (non disponibles sur Orbis) et sont donc moins précis. Ces comparaisons sont à utiliser avec réserve comme des calculs a minima.*]
 
 .pull-right[
 ![](./graph/ddv_s-g-o_venneuler.png)
@@ -190,47 +193,18 @@ L'intersection des deux listes par nom renvoie 145 établissements, indiquant qu
 
 ## Liste établie par CCFD et Sherpa
 
-Sur la base de données ouvertes, les associations CCFD Terres solidaires et Sherpa ont établi une liste des entreprises ayant déclarées être soumises à la loi Devoir de vigilance ou ayant déjà publié un plan de ce type.
+Sur la base de données ouvertes, les associations CCFD Terres solidaires et Sherpa ont établi une liste des entreprises ayant déclarées être soumises à la loi Devoir de vigilance ou ayant déjà publié un plan en 2017 et en 2018.
 
-    Accor
-    Air Liquide
-    Arkema
-    Atos
-    Bic
-    Bolloré
-    Bouygues
-    BPCE
-    CIC
-    Club Med
-    Danone
-    Dassault Systèmes
-    Eramet
-    Essilor
-    Faurecia
-    Groupama
-    Bel
-    Iliad
-    Imerys
-    Ipsos
-    JC Decaux
-    Keolis
-    Kering
-    Korian
-    Lagardère
-    LVMH
-    Nexans
-    Nexity
-    Pernod Ricard
-    Plastic Omnium
-    Publicis
-    Rexel
-    Saint Gobain
-    Teleperformance
-    Ubisoft
-    Valeo
-    Vallourec
-    Vinci
-    Wendel
+# WIP
+1. normaliser la base ;
+2. traiter les cas particuliers ;
+3. opérer les comparaisons.
+
+---
+
+### Comparaisons avec les listes ouvertes
+
+# WIP
 
 ---
 
@@ -242,13 +216,46 @@ class: inverse, center, middle
 
 ## Base Lifi
 
+La base de données Liaisons financières ([Lifi](https://www.insee.fr/fr/metadonnees/source/serie/s1038)) est un système d'information décrivant les liens capitalistiques entre les entreprises à l'échelle internationale.
+
+Elle est alimentée par de nombreuses sources : Banque de France, direction des Finances publiques, Insee, Orbis et rapports d'activités.
+
+D'après les informations disponibles en ligne et des avis de spécialistes que nous avons consulté, cette base pourrait combler de nombreuses lacunes des données disponibles, notamment sur le plan des effectifs internationaux.
+
+Ces données n'étant pas disponible en open data mais présentant un intérêt pour l'intérêt général, nous avons initié une démarche de demande officielle auprès des organismes producteurs pour obtenir communication d'un extrait correspondant aux critères de la loi.
+
 ---
 
-## Requêtes aux producteurs
+### Requêtes aux producteurs - 1
+
+Pour obtenir communications, nous nous sommes tournés vers les deux organismes désignés comme producteurs :
+* la Direction générale des finances publiques (Dgfip) du ministère de l'Economie ;
+* l'Insee.
+
+Nous nous appuyons dans cette démarche sur la loi n° 78-575 du 17 juillet 1978 relative à l'accès aux documents administratifs (dite, "loi Cada"). La loi stipule un délai légal de réponse d'un mois pour toute demande. Les envois ont été réalisé entre fin février et début mars 2019.
+
+#### Réponse Dgfip
+Le pôle données de la Dgfip a répondu à notre requête par un refus. Elle nous a renvoyé à la Direction des Statistiques des entreprises de l'Insee, gestionnaire de la base (que nous avions contacté parallèlement).
+
+
+
+---
+
+### Requête aux producteurs - 2
+
+#### Réponse Insee
+L'Insee a également décliné notre demande, motivant ainsi son refus :
+> La source LIFI, constituée notamment de renseignements individuels collectés auprès d’entreprises par voie d’enquêtes de statistique publique, est pour cette raison couverte par le secret statistique.
+
+L'article 6 de la loi 51-711 du 7 juin 1951 sur le secret statistique ouvre le droit de formuler une demande auprès du Comité du secret statistique pour consulter la base.
+
+# WIP
 
 ---
 
 ## Requête Cada
+
+# WIP
 
 ---
 
@@ -258,34 +265,63 @@ class: inverse, center, middle
 
 ---
 
-## Liste établie via les données en open data
+## Listes
+
+#### Liste commune
+Nous proposons une première liste établie par croisement des bases de données Sirene et greffe sur deux années successives (exercices 2017 et 2018) de 45 enreprises correspondant aux critères de la loi Devoir de vigilance :
+
+# WIP
+1. mise en forme de la liste
+
+---
+
+#### Liste Sirene
 
 Nous proposons une première liste établie par croisement des bases de données Sirene et greffe sur deux années successives (exercices 2017 et 2018) de 45 enreprises correspondant aux critères de la loi Devoir de vigilance :
 
----
 
-## Cas des SARL
-
-
+# WIP
+1. mise en forme de la liste
 
 ---
 
-## 
+### Cas particuliers
+
+#### Les sociétés en commandite (catégorie 53)
+Les listes que nous avons établi totalisent 3 sociétés en commandite (EURO DISNEY ASSOCIES SCA, VEOLIA EAU - COMPAGNIE GENERALE DES EAUX et MANUFACTURE FRANCAISE DES PNEUMATIQUES MICHELIN), exclue en droit de l'application. Néanmoins, ces entreprises sont déclarées sous la forme de "Société en commandite par actions", lesquelles ne bénéficient pas de cette exemption.
+
+#### Les sociétés à responsabilité limitée, SARL (catégorie 54)
+Trois entreprises de la liste issue de la base Insee rentrent dans la catégorie SARL, exclue du champs d'application : SECURITAS FRANCE SARL (SARL unipersonnelle) et ZARA FRANCE et H&M HENNES & MAURITZ (SARL sans autre indication).
+
+**Trois entreprises répondant aux critères d'effectifs de la loi Devoir de vigilance doivent donc être écartées du fait de leur forme sociale : H&M, Securitas et Zara.**
+
+---
+
+## Cas
 
 ---
 
 ## Utilité des données ouvertes
 
 
+# WIP
+1. les bases de données ne s'avèrent pas cohérentes les unes par rapport aux autres, notamment du fait des modalités d'enregistrement ;
+2. parler des nouveaux formats Insee ?
+3. les données pertinentes s'avèrent payantes
+4. Recommandation 1 : renforcer les obligations de déclaration ?
+5. Recommandation 2 : modifier les formats de publication pour faciliter l'identification des critères (normaliser les rapports annuels, par exemple ?)
+
 ---
 
 ## Pertinence du cadre légal
 
+
+# WIP
+1. ?
+2. le statut juridique des entreprises 
+
 ---
+
 class: inverse, center, middle
 
 # Merci !
-
-Contact : [joel@datactivist.coop](mailto:joel@datactivist.coop)
-
-
