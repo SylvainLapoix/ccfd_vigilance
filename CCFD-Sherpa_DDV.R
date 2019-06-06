@@ -3,7 +3,7 @@
 library(tidyverse)
 library(xlsx)
 library(tidytext)
-library(openxlsx)
+# library(openxlsx)
 
 var_liste <- c("siren","nom","forme","effectif")
 
@@ -237,6 +237,7 @@ g <- read_csv("./data_out/liste_greffe.csv", col_types =
                 cols(siren = col_character(), nom = col_character(),
                      forme = col_character(),effectif = col_integer()))
 
+?read.xlsx
 
 oFR <- read.xlsx("./data/Orbis_5000FR_21112018.xlsx", sheetIndex = 2) %>%
   select(Nom.de.l.entreprise,Effectifs.Dernière.année.disp.) %>% 
@@ -244,11 +245,11 @@ oFR <- read.xlsx("./data/Orbis_5000FR_21112018.xlsx", sheetIndex = 2) %>%
   mutate(nom = as.character(nom))
 
 oWW <- read.xlsx("./data/Orbis_10000WW_21112018.xlsx", sheetIndex = 2) %>%
+  # retirer doublon FTV année 2016
+  filter(NA. != "106.") %>% 
   select(Nom.de.l.entreprise,Effectifs.Dernière.année.disp.) %>% 
   setNames(c("nom","effectif_orbis")) %>% 
-  distinct(nom) %>% # retirer le doublon "FRANCE TELEVISIONS"
   mutate(nom = as.character(nom))
-
 
 merge(oFR,oWW, by = "nom", all = FALSE) # 145
 anti_join(oFR,oWW, by = "nom") # 114
@@ -280,6 +281,7 @@ plot(vd, key = TRUE, quantities = TRUE)
 
 ccfdsherpa <- read_csv("./data_out/liste_ccfd-sherpa.csv")
 
+oFR %>% filter(str_detect(nom,"FRANCE$")) %>% select(nom)
 
 ## correction manuelle des bases -----
 # siren : nouvaux noms
@@ -376,7 +378,25 @@ s2018_complete <- read_csv2("./data/sirene_stocket_201712.csv") %>%
 
 save(s2018_complete, file = "./data/sirene_201712_light.Rdata")
 
-## comparo S/G/CS - Orbis -----
+## ddv_filter2 : S/G/CS - Orbis -----
+
+# nettoyage d'orbis
+o <- oFR %>%
+  # retrait des SARL connues
+  filter(!(nom %in% c("ZARA FRANCE","SECURITAS FRANCE SARL","H&M HENNES & MAURITZ"))) %>% 
+  # cas généraux
+  mutate(nom = case_when(str_detect(nom,"\ S.?A.?S?$") ~ str_replace(nom,"\ S.?A.?S?$",""),
+                         str_detect(nom,"\ SE$") ~ str_replace(nom,"\ SE$",""),
+                         TRUE ~ nom)) %>% 
+  # cas particuliers
+  mutate(nom = case_when(nom =="AUCHAN SUPERMARCHE" ~ "AUCHAN HYPERMARCHE",
+                         nom == "COMPAGNIE DE SAINT GOBAIN" ~ "COMPAGNIE DE SAINT-GOBAIN",
+                         nom == "ESSILOR INTERNATIONAL (COMPAGNIE GENERALE D'OPTIQUE)" ~ "ESSILOR",
+                         nom == "ORANO CYCLE" ~ "ORANO",
+                         TRUE ~ nom))
+o <- oFR
+
+# fonction ddv_filter2
 
 ddv_filter2 <- function(var,arg){
   var <- enquo(var)
@@ -410,32 +430,12 @@ ddv_filter2 <- function(var,arg){
   return(rbind(s1,g1,cs1))
 }
 
+# test
 ddv_filter2(nom,"MICHELIN") %>% filter(source == "CCFD")
 
 o %>% filter(str_detect(nom,"MICHELIN"))
 oFR %>% filter(str_detect(nom,"H&M"))
 
-
-# nettoyage d'orbis
-o <- oFR %>%
-  # retrait des SARL connues
-  filter(!(nom %in% c("ZARA FRANCE","SECURITAS FRANCE SARL","H&M HENNES & MAURITZ"))) %>% 
-  mutate(nom = case_when(str_detect(nom,"^GROUPE") ~ gsub("GROUPE\ ","",nom),
-                        str_detect(nom,"\ S.?A.?S?$") ~ str_replace(nom,"\ S.?A.?S?$",""),
-                        str_detect(nom,"\ SE$") ~ str_replace(nom,"\ SE$",""),
-                        str_detect(nom,"\ FRANCE$") ~ str_replace(nom,"\ FRANCE$",""),
-                        TRUE ~ nom)) %>% 
-  # cas particuliers
-  mutate(nom = case_when(nom =="AUCHAN SUPERMARCHE" ~ "AUCHAN HYPERMARCHE",
-                         nom == "COMPAGNIE DE SAINT GOBAIN" ~ "COMPAGNIE DE SAINT-GOBAIN",
-                         nom == "ESSILOR INTERNATIONAL (COMPAGNIE GENERALE D'OPTIQUE)" ~ "ESSILOR",
-                         nom == "DU LOUVRE" ~ "GROUPE DU LOUVRE",
-                         nom == "ORANO CYCLE" ~ "ORANO",
-                         TRUE ~ nom))
-o <- oFR
-
-
-## constitution bdd de test orbis -----
 check_orbis <- setNames(data.frame(matrix(ncol = 4, nrow = 0)),
                     c("nom", "source", "nom_source","siren"))
 
@@ -456,33 +456,119 @@ check_orbis %>% filter(is.na(nom_source)) %>%
   group_by(nom) %>% summarise(n = n()) %>% filter(n == 3) %>% 
   select(nom) %>% write_csv("./data_out/orbis_out.csv")
 
-check_orbis %>% filter(str_detect(nom,"MICHELIN"))
+check_orbis %>% filter(is.na(nom_source)) %>% 
+  group_by(nom) %>% summarise(n = n()) %>% filter(n == 3) %>% 
+  select(nom) %>% left_join(oFR, by = "nom") %>%
+  write_csv("./data_out/orbis_out_effectif.csv")
 
-check_orbis %>% filter(str_detect(nom,"KLM"))
+## ddv_filter3 : S/G/CS - Orbis avec ID -----
 
-oFR %>% filter(str_detect(nom,"LOUVRE"))
+# lecture avec IDs
+oFR2 <- read.xlsx("./data/Orbis_5000FR_21112018.xlsx", sheetIndex = 2) %>%
+  select(NA.,Nom.de.l.entreprise,Effectifs.Dernière.année.disp.) %>% 
+  setNames(c("id","nom","effectif_orbis")) %>% 
+  mutate(nom = as.character(nom))
 
-# version xlsx
-OUT <- createWorkbook()
-addWorksheet(OUT, "Liste_Orbis")
-addWorksheet(OUT, "Liste_Orbis-matchs")
-addWorksheet(OUT, "Liste_Orbis-nomatch")
-writeData(OUT, sheet="Liste_Orbis", x = check_orbis)
-writeData(OUT, sheet="Liste_Orbis-matchs", x = filter(check_orbis, !is.na(nom_source)))
-writeData(OUT, sheet="Liste_Orbis-nomatch", x = filter(check_orbis, is.na(nom_source)) %>%
-            group_by(nom) %>% summarise(n = n()) %>% filter(n == 3) %>% select(nom))
-saveWorkbook(OUT, "./data_out/liste_orbis.xlsx")
-??writeData
+oWW2 <- read.xlsx("./data/Orbis_10000WW_21112018.xlsx", sheetIndex = 2) %>%
+  # retirer doublon FTV année 2016
+  filter(NA. != "106.") %>% 
+  select(NA.,Nom.de.l.entreprise,Effectifs.Dernière.année.disp.) %>% 
+  setNames(c("id","nom","effectif_orbis")) %>% 
+  mutate(nom = as.character(nom))
 
-# Write the data to the sheets
-writeData(OUT, sheet = "Sheet 1 Name", x = dataframe1)
-writeData(OUT, sheet = "Sheet 2 Name", x = dataframe2)
+oFR2
 
-# Reorder worksheets
-worksheetOrder(OUT) <- c(2,1)
+# nettoyage d'orbis2
+o2 <- oFR2 %>%
+  # retrait des SARL connues
+  filter(!(nom %in% c("ZARA FRANCE","SECURITAS FRANCE SARL","H&M HENNES & MAURITZ"))) %>% 
+  # cas généraux
+  mutate(nom = case_when(str_detect(nom,"\ S.?A.?S?$") ~ str_replace(nom,"\ S.?A.?S?$",""),
+                         str_detect(nom,"\ SE$") ~ str_replace(nom,"\ SE$",""),
+                         TRUE ~ nom)) %>% 
+  # cas particuliers
+  mutate(nom = case_when(nom =="AUCHAN SUPERMARCHE" ~ "AUCHAN HYPERMARCHE",
+                         nom == "COMPAGNIE DE SAINT GOBAIN" ~ "COMPAGNIE DE SAINT-GOBAIN",
+                         nom == "ESSILOR INTERNATIONAL (COMPAGNIE GENERALE D'OPTIQUE)" ~ "ESSILOR",
+                         nom == "ORANO CYCLE" ~ "ORANO",
+                         TRUE ~ nom))
 
-# Export the file
-saveWorkbook(OUT, "My output file.xlsx")
+# base complète
+o2 <- oFR2
+
+# fonction ddv_filter3
+
+ddv_filter3 <- function(var,arg,arg2){
+  var <- enquo(var)
+  if (nrow(filter(s,str_detect(!! var,arg))) == 0){
+    s1 <- as.data.frame(list(id = arg2, nom = arg,source="Sirene",
+                             nom_source=NA,siren=NA))
+  } else {
+    s1 <- s %>% filter(str_detect(nom,arg)) %>%
+      select(nom, siren) %>% setNames(c("nom_source","siren")) %>% 
+      mutate(id = arg2, nom = arg,source = "Sirene") %>% 
+      select(id, nom, source,nom_source,siren)
+  }
+  if (nrow(filter(g,str_detect(!! var,arg))) == 0){
+    g1 <- as.data.frame(list(id = arg2, nom = arg,source="Greffe",
+                             nom_source=NA,siren=NA))
+  } else {
+    g1 <- g %>% filter(str_detect(nom,arg)) %>%
+      select(nom, siren) %>% setNames(c("nom_source","siren")) %>% 
+      mutate(id = arg2, nom = arg,source = "Greffe") %>% 
+      select(id, nom, source,nom_source,siren)
+  }
+  if (nrow(filter(ccfdsherpa,str_detect(!! var,arg))) == 0){
+    cs1 <- as.data.frame(list(id = arg2, nom = arg,source="CCFD",
+                              nom_source=NA,siren=NA))
+  } else {
+    cs1 <- ccfdsherpa %>% filter(str_detect(nom,arg)) %>%
+      select(nom,siren) %>% setNames(c("nom_source","siren")) %>% 
+      mutate(id = arg2, nom = arg,source = "CCFD") %>% 
+      select(id, nom, source,nom_source,siren)
+  }
+  return(rbind(s1,g1,cs1))
+}
+
+# test
+ddv_filter3(nom,"MICHELIN","25.")
+
+
+check_orbis <- setNames(data.frame(matrix(ncol = 5, nrow = 0)),
+                        c("id","nom", "source", "nom_source","siren"))
+
+
+for (i in 1:nrow(o2)) {
+  ddv <- ddv_filter3(nom,o2[i,2],o2[i,1])
+  check_orbis <- rbind(check_orbis, as.data.frame(ddv))
+}
+
+check_orbis
+
+# liste complète
+write_csv(check_orbis, "./data_out/liste_check-orbis.csv")
+
+# liste match
+check_orbis %>% filter(!is.na(nom_source)) %>% 
+  write_csv("./data_out/liste_orbis-v2.csv")
+
+check_orbis %>% filter(str_detect(nom,"ADEO"))
+
+# liste sans match
+check_orbis %>% filter(is.na(nom_source)) %>% 
+  group_by(id,nom) %>% summarise(n = n()) %>% filter(n == 3) %>% 
+  left_join(oFR2, by = "id") %>% 
+  select(id,nom.x,nom.y,effectif_orbis) %>% 
+  setNames(c("id","nom_bdd","nom_original","effectif_FR")) %>% 
+  write_csv("./data_out/orbis_out2.csv")
+
+check_orbis %>% filter(is.na(nom_source)) %>% 
+  group_by(nom) %>% summarise(n = n()) %>% filter(n == 3) %>% 
+  select(nom) %>% left_join(oFR, by = "nom") %>%
+  write_csv("./data_out/orbis_out_effectif.csv")
+
+
+
 
 ## liste def ------
 sg <- merge(s,g, by = "siren", all = FALSE) # 45
