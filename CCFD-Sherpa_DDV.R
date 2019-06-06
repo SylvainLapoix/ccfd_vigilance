@@ -550,6 +550,9 @@ write_csv(check_orbis, "./data_out/liste_check-orbis.csv")
 
 # liste match
 check_orbis %>% filter(!is.na(nom_source)) %>% 
+  left_join(oFR2, by = "id") %>% 
+  select(nom.x,nom.y,source,nom_source,siren,effectif_orbis) %>% 
+  setNames(c("nom_bdd","nom_original","source","nom_source","siren","effectif_FR")) %>% 
   write_csv("./data_out/liste_orbis-v2.csv")
 
 check_orbis %>% filter(str_detect(nom,"ADEO"))
